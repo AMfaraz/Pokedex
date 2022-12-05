@@ -189,7 +189,7 @@ const DUMMY_POKEMONS = const [
           "https://assets.pokemon.com/assets/cms2/img/pokedex/full/025.png",
       ability: {
         "Ability": "Static",
-        "Desciption":
+        "Description":
             "The Pokémon is charged with static electricity, so contact with it may cause paralysis."
       },
       types: [

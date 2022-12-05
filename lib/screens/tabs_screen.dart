@@ -2,8 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:pokedex/screens/favourites_screen.dart';
 import 'package:pokedex/screens/types_screen.dart';
 
+import '../models/pokemon.dart';
+
 class TabsScreen extends StatefulWidget {
-  const TabsScreen({Key? key}) : super(key: key);
+
+  final List<Pokemon> favouritePokemons;
+
+  TabsScreen({required this.favouritePokemons});
 
   @override
   State<TabsScreen> createState() => _TabsScreenState();
@@ -13,7 +18,7 @@ class _TabsScreenState extends State<TabsScreen> {
 
   late  List<Map<String, dynamic>>  _pages=[
     {"page":TypeScreen(),"title":"Types"},
-    {"page":FavouritesScreen(),"title":"Favourites"}
+    {"page":FavouritesScreen(favouritePokemons: widget.favouritePokemons),"title":"Favourites"}
   ];
 
   // @override

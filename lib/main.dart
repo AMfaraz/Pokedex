@@ -1,15 +1,38 @@
 import 'package:flutter/material.dart';
+
+import 'package:pokedex/dummy_data.dart';
 import 'package:pokedex/screens/pokemon_detail_screen.dart';
 import 'package:pokedex/screens/tabs_screen.dart';
 import 'package:pokedex/screens/type_pokemon_screen.dart';
+import '../models/pokemon.dart';
 import 'package:pokedex/screens/types_screen.dart';
 
 void main() {
   runApp(const MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  List<Pokemon> _allPokemons=DUMMY_POKEMONS;
+  List<Pokemon> favouritePokemons=[];
+
+  void isFavourite(String Id){
+    setState((){
+      final index=favouritePokemons.indexWhere((poki) => poki.id==Id);
+      if(index<0){
+        favouritePokemons.add(_allPokemons.firstWhere((poki) => poki.id==Id));
+      }
+      else{
+        favouritePokemons.removeAt(index);
+      }
+    });
+  }
 
   // This widget is the root of your application.
   @override
@@ -29,7 +52,7 @@ class MyApp extends StatelessWidget {
           // primarySwatch: Colors.blue,
           primarySwatch: Colors.amber,
           canvasColor: const Color.fromRGBO(255, 254, 229, 1),
-          textTheme: TextTheme(
+          textTheme: const TextTheme(
             labelMedium: TextStyle(
               fontSize: 25,
               color: Colors.black,
@@ -51,9 +74,9 @@ class MyApp extends StatelessWidget {
       // home: TypeScreen(),
       routes: {
         // '/': (ctx) => TypeScreen(),
-        '/':(ctx)=>TabsScreen(),
+        '/':(ctx)=>TabsScreen(favouritePokemons: favouritePokemons),
         TypePokemonScreen.routeName: (ctx) => TypePokemonScreen(),
-        PokemonDetailScreen.routeName: (ctx) => PokemonDetailScreen(),
+        PokemonDetailScreen.routeName: (ctx) => PokemonDetailScreen(favourite: isFavourite),
       },
     );
   }
