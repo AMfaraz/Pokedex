@@ -4,6 +4,7 @@ import 'package:pokedex/screens/types_screen.dart';
 
 import '../models/pokemon.dart';
 
+
 class TabsScreen extends StatefulWidget {
 
   final List<Pokemon> favouritePokemons;
